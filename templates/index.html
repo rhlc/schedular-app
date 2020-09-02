@@ -1,0 +1,44 @@
+{% extends 'base.html' %} {% block head %}
+<title>Event Schedular</title>
+{% endblock %} {% block body %}
+<div class="content">
+  <h1>Event Schedular</h1>
+  {% if events|length < 1 %}
+  <h4>There are no events yet, add one?</h4>
+  {% else %}
+  <table>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Created</th>
+      <th>Delete</th>
+    </tr>
+
+    {% for event in events %}
+    <tr>
+      <td>{{ event.event_id }}</td>
+      <td>{{ event.event_name }}</td>
+      <td>{{ event.event_start }}</td>
+      <td>{{ event.event_end }}</td>
+      <td>{{ event.date_created.date() }}</td>
+      <td>
+        <a href="/delete/{{event.event_id}}">Delete</a>
+        <!-- <br />
+        <a href="/update/{{event.event_id}}">Update</a> -->
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {%endif%}
+  <form action="/" method="POST">
+    <input type="text" name="name" id="name" placeholder="event name" /> <br />
+    <input type="text" name="start" id="start" placeholder="start time" />
+    <br />
+    <input type="text" name="end" id="end" placeholder="end time" /> <br />
+    <input type="submit" value="Add Event" />
+  </form>
+</div>
+
+{% endblock %}
